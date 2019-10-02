@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show]
 
       resources :merchants, only:[:index, :show]
-      get 'merchants/most_revenue', to: 'merchants#most_revenue'
+      get 'merchants/most_revenue', to: 'merchants/most_revenue#index'
 
       resources :customers, only:[:index]
 
