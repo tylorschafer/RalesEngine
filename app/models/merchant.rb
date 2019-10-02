@@ -10,10 +10,11 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_revenue(limit_result)
+    binding.pry
     select("merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
-            .joins(:invoice_items)
-            .group(:id)
-            .order('total_revenue desc')
-            .limit(limit_result.to_i)
+        .joins(:invoice_items)
+        .group(:id)
+        .order('total_revenue desc')
+        .limit(limit_result.to_i)
   end
 end

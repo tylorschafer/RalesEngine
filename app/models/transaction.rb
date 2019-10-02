@@ -1,7 +1,8 @@
 class Transaction < ApplicationRecord
   validates_numericality_of :credit_card_number
-  validates_presence_of :credit_card_expiration_date, :result
+  validates_presence_of :result
 
   belongs_to :invoice
-  has_many :invoice_items, through: :invoice
+
+  scope :successful, -> { where(result: "success") }
 end
