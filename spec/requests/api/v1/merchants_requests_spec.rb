@@ -2,25 +2,25 @@ require 'rails_helper'
 
 describe 'Merchants API' do
   it "Returns the top merchants ranked by revenue" do
-    bob = create(:merchant)
-    allow(bob).to receive(:total_revenue).and_return(10000)
-    rob = create(:merchant)
-    allow(rob).to receive(:total_revenue).and_return(1000)
-    cob = create(:merchant)
-    allow(cob).to receive(:total_revenue).and_return(2000)
-    hobb = create(:merchant)
-    allow(hobb).to receive(:total_revenue).and_return(3000)
-    knob = create(:merchant)
-    allow(knob).to receive(:total_revenue).and_return(4000)
+    bob = create(:merchant, name: "bob")
+    bob_invoice = create(:invoice, merchant: bob)
+    bob_invoice.invoice_items << create(:invoice_item, invoice: bob_invoice, quantity: 1, unit_price: 100)
+    rob = create(:merchant, name: "rob")
+    rob_invoice = create(:invoice, merchant: rob)
+    rob_invoice.invoice_items << create(:invoice_item, invoice: rob_invoice, quantity: 1, unit_price: 200)
+    cob = create(:merchant, name: "cob")
+    cob_invoice = create(:invoice, merchant: cob)
+    cob_invoice.invoice_items << create(:invoice_item, invoice: cob_invoice, quantity: 1, unit_price: 300)
 
-    get '/api/v1/merchants/most_revenue?quantity=3'
+    get '/api/v1/merchants/most_revenue?quantity=2'
+
+    expect(response).to be_successful
 
     result = JSON.parse(response.body)
 
-    expect(result).to be_successful
-    expect(result["data"].count).to eq(3)
-    expect(result["data"]).to have_content(bob.name)
-    expect(result["data"]).to have_content(knob.name)
-    expect(result["data"]).to have_content(hobb.name)
+    expect(result.count).to eq(2)
+    expect(result).to have_content(rob.name)
+    expect(result).to have_content(cob.name)
+    expect(result).to_not have_content(bob.name)
   end
 end
