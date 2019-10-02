@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :item do
-    name { "MyString" }
-    description { "MyString" }
-    unit_price { "MyString" }
-    integer { "MyString" }
-    merchant { nil }
+    name { Faker::Commerce.product_name }
+    description { Faker::ChuckNorris.fact }
+    unit_price { Faker::Commerce.price }
+    merchant
   end
 end
