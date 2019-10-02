@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe 'Items API' do
-  it 'Returns all items' do
-    create_list(:item, 5)
+describe 'Invoices API' do
+  it 'Returns all invoice' do
+    create_list(:invoice, 5)
 
-    get '/api/v1/items'
+    get '/api/v1/invoices'
 
     expect(response).to be_successful
 
