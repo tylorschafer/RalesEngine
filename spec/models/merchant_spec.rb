@@ -12,12 +12,12 @@ RSpec.describe Merchant, type: :model do
 
   describe 'Instance Methods' do
     it "#total revenue" do
-      merchant = create (:merchant)
-      create(:invoice_item, merchant: merchant, quantity: 1, unit_price: 100)
-      create(:invoice_item, merchant: merchant, quantity: 2, unit_price: 100)
-      create(:invoice_item, merchant: merchant, quantity: 3, unit_price: 100)
+      invoice = create(:invoice)
+      create(:invoice_item, invoice: invoice, quantity: 1, unit_price: 100)
+      create(:invoice_item, invoice: invoice, quantity: 2, unit_price: 100)
+      create(:invoice_item, invoice: invoice, quantity: 3, unit_price: 100)
 
-      expect(merchant.total_revenue).to eq(600)
+      expect(invoice.merchant.total_revenue).to eq(600)
     end
   end
 end
