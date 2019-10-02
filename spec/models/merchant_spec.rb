@@ -9,4 +9,15 @@ RSpec.describe Merchant, type: :model do
     it {should have_many :items}
     it {should have_many(:invoices)}
   end
+
+  describe 'Instance Methods' do
+    it "#total revenue" do
+      merchant = create (:merchant)
+      create(:invoice_item, merchant: merchant, quantity: 1, unit_price: 100)
+      create(:invoice_item, merchant: merchant, quantity: 2, unit_price: 100)
+      create(:invoice_item, merchant: merchant, quantity: 3, unit_price: 100)
+
+      expect(merchant.total_revenue).to eq(600)
+    end
+  end
 end
