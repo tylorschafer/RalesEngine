@@ -19,6 +19,5 @@ describe 'Merchants find API' do
     result = JSON.parse(response.body)
 
     expect(result["data"]["attributes"]["id"]).to eq(merchant.id)
-
   end
 end
