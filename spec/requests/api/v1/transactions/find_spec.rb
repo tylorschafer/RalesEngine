@@ -23,7 +23,7 @@ describe 'transaction find API' do
     result = JSON.parse(response.body)
     expect(result["data"]["attributes"]["id"]).to eq(transaction.id)
 
-    get "/api/v1/transactions/find?credit_card_expiration_date=#{transaction.credit_card_expiration_date}"
+    get "/api/v1/transactions/find?result=#{transaction.result}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
