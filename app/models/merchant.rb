@@ -6,8 +6,12 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :invoice_items, through: :invoices
 
-  def total_revenue
-    invoices.joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
+  # def total_revenue
+  #   invoices.joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
+  # end
+
+  def self.find_all_by(params)
+    Merchant.where(params)
   end
 
   def self.most_revenue(limit_result)
