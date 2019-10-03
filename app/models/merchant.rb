@@ -16,7 +16,7 @@ class Merchant < ApplicationRecord
 
   def self.most_revenue(limit_result)
     select("merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue")
-        .joins(:invoices, :invoice_items)
+        .joins(:invoice_items)
         .group(:id)
         .order('total_revenue desc')
         .limit(limit_result.to_i)
