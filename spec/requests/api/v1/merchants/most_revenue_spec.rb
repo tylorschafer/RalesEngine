@@ -12,14 +12,15 @@ describe 'top merchants API' do
     cob_invoice = create(:invoice, merchant: cob)
     cob_invoice.invoice_items << create(:invoice_item, invoice: cob_invoice, quantity: 1, unit_price: 300)
 
+
     get '/api/v1/merchants/most_revenue?quantity=2'
 
     expect(response).to be_successful
 
     result = JSON.parse(response.body)
 
-    expect(result.count).to eq(2)
-    expect(result[0]["name"]).to eq(cob.name)
-    expect(result[1]["name"]).to eq(rob.name)
+    expect(result["data"].count).to eq(2)
+    expect(result["data"][0]["attributes"]["name"]).to eq(cob.name)
+    expect(result["data"][1]["attributes"]["name"]).to eq(rob.name)
   end
 end
