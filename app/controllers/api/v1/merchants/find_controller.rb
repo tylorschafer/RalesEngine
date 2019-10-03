@@ -1,12 +1,6 @@
-class Api::V1::Merchants::FindController < ApplicationController
+class Api::V1::Merchants::FindController < Api::V1::Merchants::BaseController
 
   def show
-    render json: MerchantSerializer.new(Merchant.find_by(merchant_params))
-  end
-
-  private
-
-  def merchant_params
-    params.permit(:id, :name, :created_at, :updated_at)
+    render json: MerchantSerializer.new(Merchant.find_by(find_params))
   end
 end
