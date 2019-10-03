@@ -12,4 +12,16 @@ describe 'Customer API' do
 
     expect(items["data"].count).to eq(5)
   end
+
+  it "Returns a single customer" do
+    customer = create(:customer)
+
+    get "/api/v1/customers/#{customer.id}"
+
+    expect(response).to be_successful
+
+    result = JSON.parse(response.body)
+
+    expect(result["data"]["attributes"]["id"]).to eq(customer.id)
+  end
 end

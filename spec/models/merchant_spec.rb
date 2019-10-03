@@ -11,17 +11,29 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'Class methods' do
+    it "find_all_by" do
+      tylor_1 = create(:merchant, name: 'Tylor')
+      tylor_2 = create(:merchant, name: 'Tylor')
+      create(:merchant)
 
-  end
+      results = Merchant.find_all_by(name: 'Tylor')
 
-  describe 'Instance Methods' do
-    # it "#total revenue" do
-    #   invoice = create(:invoice)
-    #   create(:invoice_item, invoice: invoice, quantity: 1, unit_price: 100)
-    #   create(:invoice_item, invoice: invoice, quantity: 2, unit_price: 100)
-    #   create(:invoice_item, invoice: invoice, quantity: 3, unit_price: 100)
-    #
-    #   expect(invoice.merchant.total_revenue).to eq(600)
-    # end
+      expect(results[0].id).to eq(tylor_1.id)
+      expect(results[1].id).to eq(tylor_2.id)
+    end
+
+    it "most_revenue" do
+      bob = create(:merchant, name: "bob")
+      bob_invoice = create(:invoice, merchant: bob)
+      bob_invoice.invoice_items << create(:invoice_item, invoice: bob_invoice, quantity: 1, unit_price: 100)
+      rob = create(:merchant, name: "rob")
+      rob_invoice = create(:invoice, merchant: rob)
+      rob_invoice.invoice_items << create(:invoice_item, invoice: rob_invoice, quantity: 1, unit_price: 200)
+      cob = create(:merchant, name: "cob")
+      cob_invoice = create(:invoice, merchant: cob)
+      cob_invoice.invoice_items << create(:invoice_item, invoice: cob_invoice, quantity: 1, unit_price: 300)
+
+      expect(Merchant.most_revenue(2)).to eq([cob, rob])
+    end
   end
 end
