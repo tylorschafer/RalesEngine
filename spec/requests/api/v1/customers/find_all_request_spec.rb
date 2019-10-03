@@ -20,7 +20,6 @@ describe 'Customer find_all API' do
 
     result = JSON.parse(response.body)
 
-
     expect(result["data"][0]["attributes"]["last_name"]).to eq(customer_1.last_name)
     expect(result["data"][1]["attributes"]["last_name"]).to eq(customer_2.last_name)
 

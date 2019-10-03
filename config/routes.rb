@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :items, only: [:index, :show]
 
-
       resources :merchants, only:[:index]
 
       namespace :merchants do
@@ -12,7 +11,7 @@ Rails.application.routes.draw do
         get 'find', to: 'find#show'
       end
 
-      resources :customers, only:[:index]
+      resources :customers, only:[:index, :show]
 
       namespace :customers do
         get 'find', to: 'find#show'
