@@ -12,4 +12,16 @@ describe 'Transactions API' do
 
     expect(results["data"].count).to eq(5)
   end
+
+  it "Returns a single transaction" do
+    transaction = create(:transaction)
+
+    get "/api/v1/transactions/#{transaction.id}"
+
+    expect(response).to be_successful
+
+    result = JSON.parse(response.body)
+
+    expect(result["data"]["attributes"]["id"]).to eq(transaction.id)
+  end
 end

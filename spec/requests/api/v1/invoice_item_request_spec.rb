@@ -12,4 +12,16 @@ describe 'Invoice_item API' do
 
     expect(items["data"].count).to eq(5)
   end
+
+  it "Returns a single invoice_item" do
+    invoice_item = create(:invoice_item)
+
+    get "/api/v1/invoice_items/#{invoice_item.id}"
+
+    expect(response).to be_successful
+
+    result = JSON.parse(response.body)
+
+    expect(result["data"]["attributes"]["id"]).to eq(invoice_item.id)
+  end
 end
