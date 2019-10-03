@@ -11,6 +11,6 @@ class Invoice < ApplicationRecord
   enum status: { shipped: 0, unfulfilled: 1}
 
   def self.find_all_by(params)
-    Invoice.where(params)
+    Invoice.where(params).order(:id)
   end
 end
