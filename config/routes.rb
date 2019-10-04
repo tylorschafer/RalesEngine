@@ -2,6 +2,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+
+      namespace :items do
+        get 'find', to: 'find#show'
+        get 'find_all', to: 'find_all#index'
+      end
+
       resources :items, only: [:index, :show]
 
       namespace :merchants do
@@ -19,6 +25,11 @@ Rails.application.routes.draw do
 
       resources :customers, only:[:index, :show]
 
+      namespace :invoice_items do
+        get 'find', to: 'find#show'
+        get 'find_all', to: 'find_all#index'
+      end
+
       resources :invoice_items, only:[:index, :show]
 
       namespace :invoices do
@@ -30,7 +41,7 @@ Rails.application.routes.draw do
 
       namespace :transactions do
         get 'find', to: 'find#show'
-        get 'find_all', to: 'find#index'
+        get 'find_all', to: 'find_all#index'
       end
 
       resources :transactions, only:[:index, :show]
