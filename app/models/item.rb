@@ -7,4 +7,14 @@ class Item < ApplicationRecord
   def self.find_all_by(params)
     Item.where(params).order(:id)
   end
+
+  def self.find_by_price(price_string)
+    cents = (price_string.to_f * 100).round
+    Item.find_by(unit_price: cents)
+  end
+
+  def self.find_all_by_price(price_string)
+    cents = (price_string.to_f * 100).round
+    Item.where(unit_price: cents)
+  end
 end

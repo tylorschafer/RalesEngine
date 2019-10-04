@@ -1,6 +1,10 @@
 class Api::V1::Items::FindController < Api::V1::Items::BaseController
 
   def show
-    render json: ItemSerializer.new(Item.find_by(find_params))
+    if find_params[:unit_price] != nil
+      render json: ItemSerializer.new(Item.find_by_price(find_params[:unit_price]))
+    else
+      render json: ItemSerializer.new(Item.find_by(find_params))
+    end
   end
 end
