@@ -9,31 +9,31 @@ describe 'Items find api' do
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
-    expect(result["data"]["name"]).to eq(item.name)
+    expect(result["data"]["attributes"]["name"]).to eq(item.name)
 
     get "/api/v1/items/find?name=#{item.name}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
-    expect(result["data"]["id"]).to eq(item.id)
+    expect(result["data"]["attributes"]["id"]).to eq(item.id)
 
     get "/api/v1/items/find?description=#{item.description}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
-    expect(result["data"]["id"]).to eq(item.id)
+    expect(result["data"]["attributes"]["id"]).to eq(item.id)
 
     get "/api/v1/items/find?unit_price=#{item.unit_price}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
-    expect(result["data"]["id"]).to eq(item.id)
+    expect(result["data"]["attributes"]["id"]).to eq(item.id)
 
     get "/api/v1/items/find?merchant_id=#{item.merchant_id}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
-    expect(result["data"]["id"]).to eq(item.id)
+    expect(result["data"]["attributes"]["id"]).to eq(item.id)
 
   end
 end
