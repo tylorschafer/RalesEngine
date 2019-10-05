@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Invoice invoice_items Api' do
+describe 'Invoice invoice_items API' do
   it 'Returns all invoice_items associated with invoice' do
     invoice = create(:invoice)
     other_invoice = create(:invoice)

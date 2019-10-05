@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Invoice transactions Api' do
+describe 'Invoice transactions API' do
   it 'Returns all associated transactions' do
     invoice = create(:invoice)
     other_invoice = create(:invoice)

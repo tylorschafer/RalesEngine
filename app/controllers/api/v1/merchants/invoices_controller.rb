@@ -1,7 +1,6 @@
-class Api::V1::Merchants::InvoicesController < ApplicationController
+class Api::V1::Merchants::InvoicesController < Api::V1::Merchants::BaseController
 
   def index
-    merchant = Merchant.find(params[:id])
-    render json: InvoiceSerializer.new(merchant.invoices)
+    render json: InvoiceSerializer.new(current_merchant.invoices)
   end
 end
