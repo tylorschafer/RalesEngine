@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       namespace :customers do
         get 'find', to: 'find#show'
         get 'find_all', to: 'find_all#index'
+        get ':id/invoices', to: 'invoices#index'
       end
 
       resources :customers, only:[:index, :show]
