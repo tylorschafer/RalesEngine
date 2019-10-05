@@ -23,7 +23,8 @@ describe 'Items find api' do
     result = JSON.parse(response.body)
     expect(result["data"]["attributes"]["id"]).to eq(item.id)
 
-    get "/api/v1/items/find?unit_price=#{item.unit_price}"
+    price_string = (item.unit_price.to_f / 100).to_s
+    get "/api/v1/items/find?unit_price=#{price_string}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)

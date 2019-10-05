@@ -9,14 +9,14 @@ describe 'Items find_all api' do
     item_3 = create(:item, merchant: merchant_2, unit_price: item_2.unit_price)
     item_4 = create(:item, merchant: merchant_2, name: item_1.name)
 
-    get "api/v1/items/find_all?id=#{item_1.id}"
+    get "/api/v1/items/find_all?id=#{item_1.id}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
     expect(result["data"][0]["attributes"]["name"]).to eq(item_1.name)
     expect(result["data"][1]).to be_nil
 
-    get "api/v1/items/find_all?name=#{item_1.name}"
+    get "/api/v1/items/find_all?name=#{item_1.name}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
@@ -24,7 +24,7 @@ describe 'Items find_all api' do
     expect(result["data"][1]["attributes"]["id"]).to eq(item_4.id)
     expect(result['data'][2]).to be_nil
 
-    get "api/v1/items/find_all?name=#{item_1.description}"
+    get "/api/v1/items/find_all?description=#{item_1.description}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
@@ -32,7 +32,8 @@ describe 'Items find_all api' do
     expect(result["data"][1]["attributes"]["id"]).to eq(item_2.id)
     expect(result['data'][2]).to be_nil
 
-    get "api/v1/items/find_all?name=#{item_2.unit_price}"
+    string_price = (item_2.unit_price.to_f / 100).to_s
+    get "/api/v1/items/find_all?unit_price=#{string_price}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)
@@ -40,7 +41,7 @@ describe 'Items find_all api' do
     expect(result["data"][1]["attributes"]["id"]).to eq(item_3.id)
     expect(result['data'][2]).to be_nil
 
-    get "api/v1/items/find_all?name=#{item_1.merchant_id}"
+    get "/api/v1/items/find_all?merchant_id=#{item_1.merchant_id}"
 
     expect(response).to be_successful
     result = JSON.parse(response.body)

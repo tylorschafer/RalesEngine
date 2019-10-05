@@ -26,7 +26,6 @@ describe 'Customer find API' do
     expect(response).to be_successful
 
     result = JSON.parse(response.body)
-
     expect(result["data"]["attributes"]["first_name"]).to eq(customer_2.first_name)
   end
 end
