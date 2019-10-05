@@ -5,7 +5,7 @@ describe 'Invoice transactions Api' do
     invoice = create(:invoice)
     other_invoice = create(:invoice)
     transaction_1 = create(:transaction, invoice: invoice)
-    transaction_2 = create(:transaction, invoice: invoice, status: 'Failed')
+    transaction_2 = create(:transaction, invoice: invoice, result: 'failed')
     transaction_3 = create(:transaction, invoice: other_invoice)
 
     get "/api/v1/invoices/#{invoice.id}/transactions"
