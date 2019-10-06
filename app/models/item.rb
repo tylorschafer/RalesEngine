@@ -3,8 +3,7 @@ class Item < ApplicationRecord
 
   belongs_to :merchant
   has_many :invoice_items
-  has_many :invoices, through: :invoice_items
-  has_many :transactions, through: :invoices
+  has_many :transactions, through: :invoice_items
 
   def self.find_by(params)
     Item.order(:id).find_by(params)
@@ -25,12 +24,12 @@ class Item < ApplicationRecord
   end
 
   def best_day
-    invoices
-    .joins(:transactions)
+    invoice_items
+    .select("DATE(invoices.created_at) AS date, sum(invoice_items.quantity) AS quantity_ordered")
+    .joins(invoice: [:transactions])
     .merge(Transaction.successful)
-    .group('DATE(invoices.created_at)')
-    .order('count(invoices.created_at) DESC')
-    .count('invoices.created_at')
+    .group('date')
+    .order('quantity_ordered DESC, date DESC')
     .first
   end
 end

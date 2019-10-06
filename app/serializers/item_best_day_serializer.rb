@@ -1,13 +1,13 @@
 class ItemBestDaySerializer
-  def initialize(best_day_array)
-    @best_day_array = best_day_array
+  def initialize(best_day)
+    @best_day = best_day
   end
 
   def hash
     {
       data: {
         attributes: {
-          best_day: @best_day_array[0].strftime('%Y-%m-%d')
+          best_day: @best_day["date"]
         }
       }
     }
