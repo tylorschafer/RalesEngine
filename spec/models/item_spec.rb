@@ -33,7 +33,37 @@ RSpec.describe Item, type: :model do
       create(:invoice_item, item: item, invoice: invoice_4)
       create(:transaction, invoice: invoice_4)
 
-      expect(item.best_day.first).to eq(Date.today)
+      expect(item.best_day.date).to eq(Date.today)
+    end
+  end
+
+  describe 'Class Methods' do
+    it "most_revenue returns the top items by revenue" do
+      item_1 = create(:item)
+      invoice_item_1 = create(:invoice_item, item: item_1, quantity: 1, unit_price: 100)
+      invoice_1 = create(:invoice)
+      invoice_1.invoice_items << invoice_item_1
+      create(:transaction, invoice: invoice_1)
+
+      item_2 = create(:item)
+      invoice_item_2 = create(:invoice_item, item: item_2, quantity: 1, unit_price: 200)
+      invoice_2 = create(:invoice)
+      invoice_2.invoice_items << invoice_item_2
+      create(:transaction, invoice: invoice_2)
+
+      item_3 = create(:item)
+      invoice_item_3 = create(:invoice_item, item: item_3, quantity: 1, unit_price: 300)
+      invoice_3 = create(:invoice)
+      invoice_3.invoice_items << invoice_item_3
+      create(:transaction, invoice: invoice_3)
+
+      item_4 = create(:item)
+      invoice_item_4 = create(:invoice_item, item: item_4, quantity: 1, unit_price: 400)
+      invoice_4 = create(:invoice)
+      invoice_4.invoice_items << invoice_item_4
+      create(:transaction, invoice: invoice_4, result: 'failed')
+
+      expect(Item.most_revenue(2)).to eq([item_3, item_2])
     end
   end
 end

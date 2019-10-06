@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       namespace :items do
         get 'find', to: 'find#show'
         get 'find_all', to: 'find_all#index'
+        get 'most_revenue', to: 'most_revenue#index'
         get ':id/invoice_items', to: 'invoice_items#index'
         get ':id/merchant', to: 'merchant#show'
         get ':id/best_day', to: 'best_day#show'
