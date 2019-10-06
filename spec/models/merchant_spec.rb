@@ -26,12 +26,22 @@ RSpec.describe Merchant, type: :model do
       bob = create(:merchant, name: "bob")
       bob_invoice = create(:invoice, merchant: bob)
       bob_invoice.invoice_items << create(:invoice_item, invoice: bob_invoice, quantity: 1, unit_price: 100)
+      create(:transaction, result: 'success', invoice: bob_invoice)
+
       rob = create(:merchant, name: "rob")
       rob_invoice = create(:invoice, merchant: rob)
       rob_invoice.invoice_items << create(:invoice_item, invoice: rob_invoice, quantity: 1, unit_price: 200)
+      create(:transaction, result: 'success', invoice: rob_invoice)
+
       cob = create(:merchant, name: "cob")
       cob_invoice = create(:invoice, merchant: cob)
       cob_invoice.invoice_items << create(:invoice_item, invoice: cob_invoice, quantity: 1, unit_price: 300)
+      create(:transaction, result: 'success', invoice: cob_invoice)
+      
+      job = create(:merchant, name: "job")
+      job_invoice = create(:invoice, merchant: job)
+      job_invoice.invoice_items << create(:invoice_item, invoice: job_invoice, quantity: 1, unit_price: 400)
+      create(:transaction, result: 'failed', invoice: job_invoice)
 
       expect(Merchant.most_revenue(2)).to eq([cob, rob])
     end
