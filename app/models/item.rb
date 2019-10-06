@@ -32,7 +32,5 @@ class Item < ApplicationRecord
     .order('count(invoices.created_at) DESC')
     .count('invoices.created_at')
     .first
-      # .joins(:transactions)
-      # .merge(Transaction.successful)
   end
 end
