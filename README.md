@@ -1,6 +1,6 @@
 Rales Engine API
 ================
-* Rales Engine is a REST API built with a large database consisting of the following tables
+* Rales Engine is a REST API built with a large database consisting of:
   :merchants, :customers, :invoices, :items, :invoice_items, and :transactions.
 
 * Rales Engine includes 33 restful endpoints that return table data, business logic, and nested resource data.
