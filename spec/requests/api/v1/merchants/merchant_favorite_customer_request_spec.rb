@@ -19,5 +19,11 @@ describe 'Merchant favorite customer API' do
     create(:transaction, invoice: invoice_4)
     create(:transaction, invoice: invoice_5)
 
+    get "/api/v1/merchants/#{merchant.id}/favorite_customer"
+
+    expect(response).to be_successful
+    result = JSON.parse(response.body)
+
+    expect(result["data"]["attributes"]["id"]).to eq(customer_1.id)
   end
 end
