@@ -13,6 +13,31 @@ RSpec.describe Item, type: :model do
   end
 
   describe 'Instance Methods' do
+    it 'find_by finds an item ordered by its id' do
+      item_1 = create(:item)
+      create(:item)
+      create(:item)
+
+      expect(Item.find_by(id: item_1.id)).to eq(item_1)
+    end
+
+    it 'find_all_by returns all items with chosed attribute' do
+      item_1 = create(:item, name: 'item')
+      item_2 = create(:item, name: 'item')
+      item_3 = create(:item)
+
+      expect(Item.find_all_by(name: item_1.name)).to eq([item_1, item_2])
+    end
+
+    it 'find_by_price and find_all_by_price finds items based on its price' do
+      item_1 = create(:item, unit_price: 1234)
+      item_2 = create(:item, unit_price: 1234)
+      item_3 = create(:item)
+
+      expect(Item.find_by_price('12.34')).to eq(item_1)
+      expect(Item.find_all_by_price('12.34')).to eq([item_1, item_2])
+    end
+
     it 'best_day returns the date with the most sales for the item' do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
