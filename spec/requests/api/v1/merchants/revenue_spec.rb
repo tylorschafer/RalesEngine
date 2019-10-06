@@ -3,17 +3,17 @@ require 'rails_helper'
 describe 'Merchant revenue API' do
   it 'Returns the total revenue across merchants for a given date' do
       bob = create(:merchant, name: "bob")
-      bob_invoice = create(:invoice, merchant: bob, created_at: Time.now - 1.days)
+      bob_invoice = create(:invoice, merchant: bob, created_at: Time.now)
       bob_invoice.invoice_items << create(:invoice_item, invoice: bob_invoice, quantity: 1, unit_price: 100)
       create(:transaction, result: 'success', invoice: bob_invoice)
 
       rob = create(:merchant, name: "rob")
-      rob_invoice = create(:invoice, merchant: rob, created_at: Time.now - 1.days)
+      rob_invoice = create(:invoice, merchant: rob, created_at: Time.now)
       rob_invoice.invoice_items << create(:invoice_item, invoice: rob_invoice, quantity: 1, unit_price: 200)
       create(:transaction, result: 'success', invoice: rob_invoice)
 
       cob = create(:merchant, name: "cob")
-      cob_invoice = create(:invoice, merchant: cob, created_at: Time.now - 1.days)
+      cob_invoice = create(:invoice, merchant: cob, created_at: Time.now)
       cob_invoice.invoice_items << create(:invoice_item, invoice: cob_invoice, quantity: 1, unit_price: 300)
       create(:transaction, result: 'success', invoice: cob_invoice)
 
