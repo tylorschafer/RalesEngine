@@ -69,5 +69,26 @@ RSpec.describe Merchant, type: :model do
 
       expect(Merchant.revenue(Time.now.strftime('%Y-%m-%d').to_s)).to eq(600)
     end
+
+    it "favorite_customer returns the customer with the most successful transactions for a single merchant" do
+      merchant = create(:merchant)
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      customer_3 = create(:customer)
+
+      invoice_1 = create(:invoice, merchant: merchant, customer: customer_1)
+      invoice_2 = create(:invoice, merchant: merchant, customer: customer_1)
+      invoice_3 = create(:invoice, merchant: merchant, customer: customer_1)
+      invoice_4 = create(:invoice, merchant: merchant, customer: customer_2)
+      invoice_5 = create(:invoice, merchant: merchant, customer: customer_3)
+
+      create(:transaction, invoice: invoice_1)
+      create(:transaction, invoice: invoice_2)
+      create(:transaction, invoice: invoice_3)
+      create(:transaction, invoice: invoice_4)
+      create(:transaction, invoice: invoice_5)
+
+      expect(merchant.favorite_customer).to eq(customer_1)
+    end
   end
 end

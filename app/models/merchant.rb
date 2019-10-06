@@ -3,6 +3,7 @@ class Merchant < ApplicationRecord
 
   has_many :items
   has_many :invoices
+  has_many :customers, through: :invoices
   has_many :transactions, through: :invoices
   has_many :invoice_items, through: :invoices
 
@@ -24,5 +25,15 @@ class Merchant < ApplicationRecord
       .merge(Transaction.successful)
       .where('CAST(invoices.created_at AS text) LIKE ?', "%#{date}%")
       .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def favorite_customer
+    customers
+      .select("customers.*, count(invoices.customer_id) as invoice_count")
+      .joins(:transactions)
+      .merge(Transaction.successful)
+      .order("invoice_count desc")
+      .group("customers.id")
+      .first
   end
 end
